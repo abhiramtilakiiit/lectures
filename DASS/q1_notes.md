@@ -1,4 +1,230 @@
-# FPA 
+# Quiz 1 notes
+
+## Opportunistic approach
+
+### Steps:
+
+1. First prototype that has minimal features and works.
+1. Modify and maintain untill these features are very usable.
+1. Think of a new feature or improvement.
+1. Go to step 2
+
+### Disadvantages
+
+- Good for personal projects.
+- Bad for large scale ones where delivery on time with quality is important.
+
+
+## Lifecycle Model / Process Model
+
+### Steps (example):
+
+1. One engineer starts writing code,
+1. Other writes docs and testing
+1. Other defines the file structure
+1. Other defines the interface and I/O
+
+### Features:
+
+1. Descriptive diagramatic model. (planning, feasibility study, required tools)
+1. Identify all the activities required for product developement (requirements analysis)
+1. Has a precedence ordering among different activities (timeline flowchart with dependencies)
+1. Life cycle of product developement is divided into phases.
+
+## SDLC ( Software developement life cycle )
+
+### Stages of software developement life cycle.
+
+1. Communication - Requirements and stuff
+1. Planning - Estimation, Scheduling and Tracking
+1. Modeling - analysis, design
+1. Construction - code, test
+1. Deployment - delivery, support, feedback
+
+### Simplified version of SDLC (phases).
+
+1. Feasibility study / Planning ( requires monetary study ).
+1. Requirements Engineering.
+1. Architecture / Design.
+1. Implementation.
+1. Testing.
+1. Maintenance.
+
+### Requirements
+
+Get the exact requirements, document them, analyse them, add some from your side
+and then verify with the customer.
+
+### Designs
+
+- Try to design in a way that is compatible with some programming language.
+
+### High level design
+
+- decompose things into modules and establish relationship between these modules
+
+### Detailed design
+
+- Write the data structrues and algos required for this, and different modules designed in detail.
+
+### Implementation
+
+- During the implementation we write code for the above design
+- At the end, all these modules are tested seperately.
+
+### Integration and testing
+
+- These modules are integrated through a number of steps, and partial systems are tested.
+
+### System testing
+
+- After all modules are linked seperately, you need to test overall features mentioned in requirements.
+
+### Maintenance
+
+Types of maintenance
+
+- Preventive maintenance: Foresee the future and try to prevent errors
+- Corrective maintenance: Correct errors which were not discovered during the product developement.
+- Perfective maintenance: Improve implementation / enhance functionalities
+- Adaptive maintenane: Port software to new environments etc.
+
+
+# Types of process models
+
+## Traditional SDLC (Waterfall process model)
+
+As mentioned above, will write again for practice:
+
+1. Planning - Project plan, estimates, schedule
+1. Requirements - schedule, risk mgmt, tools needed
+1. Analysis / Design - GUI prototypes, Design Document
+1. Implementation - code
+1. Testing
+1. Release
+
+## Prototype Model ( also traditional )
+
+1. Requirement Gathering
+1. Quick design with available info
+1. Build prototype
+1. Show customer and refine requirements
+1. Back to step 2
+1. after customer is satisfied
+1. Final Design
+1. Implement
+1. Test
+1. Maintain
+
+A prototype is just a toy application, used to show the customer if that's what he
+actually wants.
+
+## Incremental Model ( very traditional )
+
+Each increment is a mini waterfall. Built upon the previous one.
+
+1. increment #1
+1. increment #2
+1. increment #3
+
+Its called iterative incremental model if the same steps of water fall are repeated.
+
+## Common Callenges with traditional models
+
+- This is overkill for Lightweight applications.
+- Document intensive, produced unneeded documents.
+- Less flexible design.
+- Big-Bang approach for coding, (coding is only one phase, so no proper customer evals)
+    ( Its good to take a break and make necessary changes to existing design or requirements )
+- Testing is often short-shifted
+- One-shot delivery opportunity, not always successfull, may need to go back to coding to make delivery happen.
+- Limited or no time given for optimization and process improvement.
+
+# Agile bs
+
+Application of Agility:
+
+1. Planning
+1. Release 1
+1. Release 2
+1. Final Release
+
+Each release has all the traditional things:
+1. User Stories
+1. Test Plan
+1. Implement
+1. Test
+1. Demo/Delivery
+1. Reflect
+
+To be agile is to be quick and continuous.
+
+## Extreme Programming
+
+Many Many 100s of iterations of waterfall, like once a week.
+
+## Scrum (Scam) Process
+
+This works for teams even though they are not good devs.
+
+The order is:
+
+1. A chunk of is taken in each sprint Product Backlog.
+1. There is a sprint plan/meet and a sprint backlog is taken up or added
+    from the previous iteration.
+1. Every sprint takes 1-4 weeks and there is a sprint review + retrospective happening
+    every once in a day
+1. After the iteration is complete we have a chunk of finished work incremented to the final
+    working product.
+
+## Characteristics of Agile Dev
+
+- Incemental developement (releases)
+- Each iteration touches all life-cycle activities.
+- Each release has testing
+- Flexible Design.
+- Reflection after each release cycle.
+- Several Technical and customer focused presentation opportunities.
+- Test-Driven developement
+- Continuous integration - not big bang
+- Refactoring - going back and changing small things to fix bugs
+
+## Continuous Integration and Delivery
+
+- Integration is when all the code getting pushed gets tested for changes. If free of bug
+    fixes they are ready to be deployed.
+- The deployment occurs manually.
+
+Continuous Delivery goes a step further and handles the releases too.
+
+
+## Operations
+
+There are things other than making software that need to be taken care of.
+
+- Managing / Allocating harware / OS databases, resources.
+- Monitoring load spikes, performance, crashes, hardware updates.
+- Backups Rollbacks releases.
+
+The coordination between Developers and Operators is called System Administration.
+They are known to use a lot of tools for this integration purposes.
+
+## DevOps
+
+These are the things that DevOps do:
+
+- Continuous Integration.
+- Continuous Delivery.
+- Infrastructure as code, test and deploy in containers.
+- Monitoring and logging
+- Microservice architecture
+- Communicate and Collaborate.
+
+# Estimation
+
+Its always good to make estimates after more things are known about the project.
+Its always good to average out many people's estimates together. The law of Large numbers (SLLM)
+# FPA
 
 Steps
 
@@ -31,7 +257,7 @@ Disadvantages:
 Decompose your schedule into manageable chunks, Then divide and conquer
 
 Division into three parts:
-1. Functions - Spans the life of a project, usually divides horizontally (risk management, change management) 
+1. Functions - Spans the life of a project, usually divides horizontally (risk management, change management)
 1. Activities - element of work with its own set of cost, duration and resources
 1. Tasks - Lowest level of work.
 
@@ -45,7 +271,7 @@ Most WBS have different levels Level 1,2,3,4 where each ones get more specific o
 
 - Process WBS - Activity oriented, used by PM ( like division between different phases )
 - Product WBS - Function / Entity oriented, used by Engineer Manger ( like division in things to make )
-- Hybrid WBS 
+- Hybrid WBS
 
 ### While making WBS things to keep in mind
 
@@ -67,7 +293,7 @@ Just a simple list of all activities with checkboxes, like WBS
 
 ## Gantt chart
 
-Just a simple chart that contains a list of activities, estimated cost and duration for 
+Just a simple chart that contains a list of activities, estimated cost and duration for
 that task. Doesn't show interdependencies of project
 
 ## Network Techniques
@@ -127,7 +353,7 @@ Systematically organize requirements into SRS after fixing all ambiguities.
 - Correct: Only user required stuff, don't add things on ur own
 - Feasible: Doable in budget
 - Necessary: Trace each requirement back to origin (reason)
-- Unambiguous: one interpretation 
+- Unambiguous: one interpretation
 - Verifiable: proper way to check
 - Prioritized: good to convert into FPA
 
@@ -159,18 +385,8 @@ are left for design. ( what not how )
 
 1. Functional Requirements - Every function changes input and transforms into output.
 1. Non-Functional Requirements - Which do not have specific function, Maintainability, Portability, Usability
-    - Performance Requirements: They go into specifying requirements on how the functional requirements 
+    - Performance Requirements: They go into specifying requirements on how the functional requirements
     should be done - fast, secure, reliable, easily usable.
-    - External interface requirements: Non-Functional requirements also store information like, what OS/DBMS 
+    - External interface requirements: Non-Functional requirements also store information like, what OS/DBMS
     to use, hardware to be used
 1. Goals of implementation - they consist of things that can't be verified, like future of the project
-
-
-
-
-
-
-
-
-
-
