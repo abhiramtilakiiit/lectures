@@ -1,4 +1,6 @@
-# AI.pdf
+# MDL Notes
+
+## Python.pdf
 
 ## What is machine learning
 
@@ -224,3 +226,54 @@ normal distribution.
 
 Just categorize values into bins, and then perform, this increases speed
 and avoids overfitting ( simples dimentionality reduction )
+
+---
+
+## AI.pdf
+
+## Propositional Logic
+
+Just divide the sentence, into parts such that you assign symbols, where each
+symbol is either true of false.
+
+Single Propositional symbol corresponds to atomic sentence. Complex sentences
+are made by using multiple combination of these atomic sentences. The connectives
+used to perform these combinations are:
+
+- Negation ($\lnot$)
+- Conjunction ($\land$)
+- Disjunctionn ($\lor$)
+- Implication ($\implies$)
+- Biconditional ($\iff$)
+
+## Semtantics
+
+We define model as a set of Propositional symbols with their values (like dictionary)
+
+$$ m*1 = \{ P*{1,2} = false, P*{2,2} = false, P*{3,1} = true \} $$
+
+Determining if a Knowledge base is true is a recursive algorithm taking $2^n$
+time. We need a better way to solve this. Knowledge base is a set of sentences
+could act as premise. The query is the one we are supposed to figure out using KB
+
+This is called Entailment - Or combining sentences.
+
+## Propoisional Theorem
+
+Some Definitions:
+
+- Logical Equivalence: If two sentences are true in the same set of models.
+  Truth table is same
+- Validity or Tautology: A sentence is valid if it is always true in all models.
+- Deduction Theorem: We can derive a deduction theorem from different Logically
+  Equivalent statements and reach validity of given statement, using premises (KB).
+
+> For any sentences $\alpha$, $\beta$, $\alpha \vdash \beta$, iff sentence
+> $\alpha \implies \beta$ is valid.
+
+- Satifiability: A sentence is satisfiable if it is true in some model.
+  Unsatisfiability means it is false everywhere.
+
+Link between validity and satisfiability:
+
+> $\alpha \vdash \beta$ iff ($\alpha \land \lnot \beta$)
