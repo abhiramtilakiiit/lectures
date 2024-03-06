@@ -29,14 +29,43 @@
 
 ## Plank's constant
 
-AIM: To determine the Planck's constant using the photoelectric effect experimental
+**AIM:** To determine the Planck's constant using the photoelectric effect experimental
 setup.
+
+**Apparatus:**
+
+- DC Photo Emissive Cell (Provided with a wide-slit)
+- Light source
+- Power Supply
+- filters of different wavelengths
+- filter stand
+- Ammeter and Voltmeter setup
 
 ## Band Gap
 
-AIM: To determine the bang gap of a given semi conductor.
+**AIM:** To determine the bang gap of a given semi conductor.
+
+**Apparatus:**
+
+- D.C Power Supply
+- Diode (Semiconductor Diode)
+- Thermometer
+- Heating arrangement
+- Voltmeter
+- MicroAmmeter
+- Connecting wires
+- Stop watch
 
 ## Lee-Charlottes experiment
 
-AIM: To determine the thermal conductance of bad conductors using the Lee-Charlottes
+**AIM:** To determine the thermal conductance of bad conductors using the Lee-Charlottes
 Experiment.
+
+**Apparatus:**
+
+- Lee's apparatus (heating plate, brass bottom plate)
+- Steam generator
+- Two Theremometers
+- Bad conducting materials (Cardboard, Sanmica, glass)
+- Stop Watch
+- Beaker
