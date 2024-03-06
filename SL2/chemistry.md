@@ -1,27 +1,21 @@
-# Experiment 1 
+# Bio-chem experiment
 
-Performing Thin Layer Chromatography on Analgesics and Estimation of molecular mass.
-The solvent is drawn up by using capillary action to a predetermined height, solvent front
+## TLC
 
-$$ R_f = \frac{\text{distance from origin to center to spot}}{\text{distance from origin to solvent front}} $$
+AIM: Performing thin layer chromatography of analgesics.
 
-# Experiment 2 
+## Amino-acid
 
-Potentiometric titration using the pH meter and determination of pI of amino acid.
+AIM: Performing pH-metric titration to determing the pI of a given aminoacid
 
-$$ pI = \frac{pKa_1 + pKa_2 }{2}$$
+## Quantum-dot
 
-Titrated with 0.01 M HCl and keep dropping dilute NaOH (given).
+AIM: Synthesis of Mn-doped ZnS quantum dot
 
-# Experiment 3
-lite
+## Polymer Synthesis
 
-# Experiment 4
+AIM: To prepare Phenol formaldehyde (P-F) resin or Bakelite.
 
-To prepare Phenol formaldehyde resin (P-F) resin. (Bakelite)
+## DNA Extraction
 
-Materials: 2g Phenol, 2.5 ml formaldehyde, 5 ml glacial acetic acid, concentrated HCl 8ml (keep dropping)
-
-# Experiment 5
-
-
+AIM: Extraction and Identification of DNA from Onions

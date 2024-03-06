@@ -1,42 +1,42 @@
-# Notes for quiz
+# Physics practice
 
-## Experiment 1
+## Melde's Experiment
 
-Measurement of frequency of turing fork or vibrator, using melde's apparatus.
+**AIM:** To determine the frequency of a turing fork, using Melde's arragement.
 
-$$ \eta = \frac{1}{l}\sqrt{\frac{T}{m}} \hspace{1cm} \text{(For transverse)} $$
-$$ \eta = \frac{1}{2l}\sqrt{\frac{T}{m}} \hspace{1cm} \text{(For longitudinal)} $$
+**Apparatus:**
 
-## Experiment 2
+- Battery Elimintor
+- Connecting wires
+- electrically maintained vibrator
+- tuning fork
+- thread
+- weighing pan
+- weight box
+- Smooth pulley fixed to stand
+- Metre scale.
 
-Determination of polarizing angle of glass prism and measurement of its refractive index using
-the Brewster's angle.
+## Brewster's Law
 
-$$ \theta = tan^{-1}(\mu_r) $$
+**AIM:** To determine the Polarizing angle and Refractive index using Brewsters Law.
 
-## Experiment 3 
+**Apparatus:**
 
-Determination of Plank's constat using the Plank's constant apparatus.
+- Sodium Lamp
+- Spectrometer
+- Polaroid attachment
+- Glass prism
 
-$$ h = \frac{eV(\lambda_1 - \lambda_2)}{c(\lambda_1 \lambda_2)} $$
+## Plank's constant
 
-## Experiment 4
+AIM: To determine the Planck's constant using the photoelectric effect experimental
+setup.
 
-To determine the band gap by measuring the resistance of a thermistor as a function of temperature.
+## Band Gap
 
-$$ R = R_0 e^{\frac{E_g}{KT}} $$
+AIM: To determine the bang gap of a given semi conductor.
 
-## Experiment 5 
+## Lee-Charlottes experiment
 
-Determination of thermal conductivity of an insulator using Lees and Charloton's apparatus.
-
-The heat flow can be calculated as:
-$$ Q = \frac{kA(\theta_1 - \theta_2)}{d} $$
-
-The heat flow lost by the metal plate, while steam chamber is disconnected is given by:
-$$ Q = ms \left(\frac{\partial \theta}{\partial t}\right)_{\theta_2}  
-    \hspace{1cm} \text{(S is specific heat of metal)}$$
-
-
-
-
+AIM: To determine the thermal conductance of bad conductors using the Lee-Charlottes
+Experiment.
