@@ -277,3 +277,104 @@ Some Definitions:
 Link between validity and satisfiability:
 
 > $\alpha \vdash \beta$ iff ($\alpha \land \lnot \beta$)
+
+## Inferences and Proofs
+
+Inference rules are conclusions that can be derived from given premises,
+or derived propositions. Some of the inferences used are:
+
+- Modus Ponens: $\alpha \implies \beta, \alpha$, this means $\beta$.
+- And-Elimination: $\alpha \land \beta$, means $\alpha, \beta$
+- All biconditional equialences like commutativity etc.
+
+Finding a proof can be more efficient because the proof can ignore irrelevant
+propositions, no matter how many of them are there.
+
+## Monotonicity
+
+When more information is added to knowledge base the number of entailed sentences
+only ever increases in number.
+
+> if KB $\vdash \alpha$ then KB $\land \beta \vdash \alpha$
+
+## Proof by Resolution
+
+Its just an inference saying that if somethings is OR with other,
+if somethings is false, then you can remove that
+
+If $\alpha \lor \beta, \lnot\beta$, then $\alpha$.
+
+We can further simplify this:
+
+if $l_1 \lor l_2 \lor l_3 \lor ..., m_1 \lor m_2 \lor m_3 ...$ then we have $ l_1 ... \lor m_1$
+
+## Conjuntive normal form
+
+Every sentence in propositional logic can be written as a conjunction of clauses.
+
+## Resolution algorithm
+
+To prove validity we take negetive and prove non-satisfiability.
+
+We take each clause and try to find complementary literals, if the resolution
+gives a new clause add it to the set. If this process keeps on repeating
+and no new sets have been added. The statement is not valid, else if it
+gives an empty clause, then conjunction will give fallacy which means the
+statement entails.
+
+## Ground resolution theorem
+
+If a set of clauses is unsatisfiable then one of the clauses or their resolution
+is an empty clause.
+
+---
+
+## Frequent Pattern mining
+
+### Basic problem definition
+
+Task is to find all subsets (itemsets) which occur more frequently than
+some user-specified threshold
+
+Frequency is called support nad user-specified support is minimum support
+threshold.
+
+- Itemset - set of items, where each item is an element of possible items.
+- Count - occurense of the item set
+- Support - Ratio of count and D (database count).
+- Minimum Support - user defined (minsup)
+- Frequent itemset - support(itemset) > minsup
+- Confidence - support of (X $\lor$ Y ) / support of X
+- Minimum Confidense - user defined minimum confidense
+- Interesting association rule - one where support > minsum, confidence > minconf.
+
+### Mining Association Rules
+
+The idea is to mine interesting association rules.
+
+- Phase 1 is FIM (frequent itemset mining), which requires access to dataset is
+not in portion so chill bruv
+- Phase 2 is making Interesting association rules, which doesn't require dataset
+
+This is a lemma saying, information from Phase 1 can be used to get interesting
+association rules, we don't need dataset again. This happens because, the
+support for W and any subset X is already present, we just need support(X) which
+we will get from other sets, since if set X is just as or more frequent it will
+be present in the output of phase-1. Thus divide both to get confidence.
+
+The problem is that when we make rules, there are a lot of reduntant rules
+and the number of rules is 2^k ( k is output of phase-1 ).
+
+### Quantitative and Categorical rules
+
+- Equi-depth partitioning: k - equal parts, one with low variability is
+  like number of cell phones which is 0,1,2 better to be a category.
+  Things like age needs classificatoin using Equi-depth partitioning.
+
+- Hierachy - Example plants and animals, Taxonomy
+
+### Cyclic or periodic rules
+
+Ones that repeat every year
+
+### 
