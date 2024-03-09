@@ -1,27 +1,66 @@
-# Experiment 1 
+# Bio-chem experiment
 
-Performing Thin Layer Chromatography on Analgesics and Estimation of molecular mass.
-The solvent is drawn up by using capillary action to a predetermined height, solvent front
+## TLC
 
-$$ R_f = \frac{\text{distance from origin to center to spot}}{\text{distance from origin to solvent front}} $$
+**AIM:** Performing thin layer chromatography of analgesics.
 
-# Experiment 2 
+**Apparatus:**
 
-Potentiometric titration using the pH meter and determination of pI of amino acid.
+- Unknown & Known analgesics
+- 100% Ethanol
+- TLC Plate
+- Developing Solution (95% Ethyl Acetate, 5% Glacial Acetic acid, phenol, acetone)
+- UV lamp
+- Jars with lids
 
-$$ pI = \frac{pKa_1 + pKa_2 }{2}$$
+## Amino-acid
 
-Titrated with 0.01 M HCl and keep dropping dilute NaOH (given).
+**AIM:** Performing pH-metric titration to determing the pI of a given aminoacid
 
-# Experiment 3
-lite
+**Apparatus:**
 
-# Experiment 4
+- pH meter
+- 100ml Beaker
+- Burette
+- NaOH
+- Dilute Hydrochloric acid (0.1)
+- Unknown Amino Acid
 
-To prepare Phenol formaldehyde resin (P-F) resin. (Bakelite)
+## Quantum-dot
 
-Materials: 2g Phenol, 2.5 ml formaldehyde, 5 ml glacial acetic acid, concentrated HCl 8ml (keep dropping)
+**AIM:** Synthesis of Mn-doped ZnS quantum dot
 
-# Experiment 5
+**Apparatus:**
 
+-
 
+## Polymer Synthesis
+
+**AIM:** To prepare Phenol formaldehyde (P-F) resin or Bakelite.
+
+**Appartus:**
+
+- beakers ( 250 ml and 100 ml )
+- Pipette
+- measuring cylinder
+- dropper
+- filter paper
+- Glass rod
+- Phenol
+- Formaldehyde
+- Gacial Acetic Acid
+- Conc. HCl
+
+## DNA Extraction
+
+**AIM:** Extraction and Identification of DNA from Onions
+
+**Appratus:**
+
+- Onions
+- 95% Ethanol
+- Conc. Sulphuric Acid
+- Papain extract from Papaya
+- ET
+- Ice-cold Distilled water
+- Tris-HCl
