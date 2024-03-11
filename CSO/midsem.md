@@ -137,3 +137,78 @@ number then add 1 to it.
 
 - when we multiply first convert the two operands to 2w bits by sign expansion
   then you can do whatever, multiply, then truncate.
+
+---
+
+## History
+
+- All processor are backwards compatible to Intel 8086, introduced in 1978.
+- x86 is CISC not RISC, 8086 is 16-bit extension to 8080. (8-bit registers)
+- ARM - Advanced RISC Machines, used to power smartphones, macbooks
+- x86 used to power consoles except Nintendo Switch.
+- ARM is faster than x86 ( fastest supercomputer in 2020 ). But in the end
+  of the day x86 is more useful in compute intensive, cloud computing.
+
+Register sizes:
+
+- 8086, 8088, 80186, 80286 are all 16-bit
+- 80386 (i386), 80486 (i486) are all 32-bit
+  Also pentium 1, pro, 2, 3, 4 (some), M, Core Xeon (old), ATOM (mobile),
+  Celeron (old), AMDx86, AMD K5,K6, Athlon, Duron, Sempron
+- Newer Prescott Pentium 4, Pentium D, Core 2, Core i3-9, Celeron, Pentium
+  Dual Core, Newer Xeon. AMD Ryzen, Epyc, APU Athlon/Sempron, APU Ax
+
+### Some good achievements
+
+- 8086 is 1mb address space, first 16 bit
+- i386 is 32-bit, can run unix.
+- Pentium 4E, first 64 bit processor
+- Core 2 first dual core (multicore)
+- Core i7, 4 cores
+
+### AMD
+
+- Recruited top designers from failing companies.
+- Built Opteron which is tough competitor to Pentium.
+- Developed their own extension to x86-64.
+
+Intel felt defeat to AMD
+
+- They made IA64 in 2001, which everyone hated.
+- (2003) AMD made x86-64 which defeated performance of intel
+- (2004) Intel made EM64T (extended to 64-bit), which was x86-64 clone.
+
+## Registers
+
+- rax
+- rbx
+- rcx
+- rdx
+- rsi - source indicator
+- rdi - dest indicator
+- rsp - stack pointer
+- rbp - base pointer
+- r8
+- r9
+- r10
+- r11
+- r12
+- r13
+- r14
+- r15
+
+### Moving
+
+Using movq command will move but to move immediately use $.
+To move the value of one to other do %rax, (%rdx) to assign
+the register value of rax. But copy trait implemented then ( use leaq )
+just doing register to register movement will move all contents.
+
+You cannot perform memory to memory transfer with a simple movq
+
+### Displacement and scaling
+
+d(rax, rbx, s), will do (d + rax + rbx * s), s is only 2,4,8
+
+movq will only move quad, but if you want to do zero extensions.
+You can do movzbw ( byto to word )
