@@ -370,3 +370,9 @@ and the number of rules is 2^k ( k is output of phase-1 ).
 - Equi-depth partitioning: k - equal parts, one with low variability is
   like number of cell phones which is 0,1,2 better to be a category.
   Things like age needs classificatoin using Equi-depth partitioning.
+
+- Hierachy - Example plants and animals, Taxonomy
+
+### Cyclic or periodic rules
+
+Ones that repeat every year
