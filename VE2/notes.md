@@ -74,8 +74,25 @@ The differences are as follows.
 Justice is the recognition, fulfilment and evaluation of human-human
 relationship, leading to mutual happiness.
 
+One has to gain competence to live with justice in the relationships in
+continuity. Competence here is; recognition, fulfilment and evaluation.
+
+Mutual happiness may sometimes result instantly, and sometimes may take some
+time when one of the persons is yet to gain competence. But if neither of the
+two are competent, justice will not take place.
+
+**if one is conditioned to gain happiness from sensation, they will never be
+able to gain competence in continuity.**
+
 > If we have assumed that there is struggle for survival, we will start with a
 > feeling of opposition (jealousy). With this wrong feeling, howsoever hard we try
 > for fulfilment in relationship, ultimately it will land us up into competition,
 > opposition, fights and even war. There could be many such wrong assumptions
 > leading to wrong feelings in us that retard the possibility of justice.
+
+## Summary: My Participation in My Family
+
+My participation in my family is to ensure harmony, mutual happiness, justice:
+
+- Ensuring right **feelings** in myself, leading to my happiness.
+- Expressing these feelings with the others, leading to other's happiness.
