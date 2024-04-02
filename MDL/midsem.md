@@ -376,3 +376,7 @@ and the number of rules is 2^k ( k is output of phase-1 ).
 ### Cyclic or periodic rules
 
 Ones that repeat every year
+
+
+
+
