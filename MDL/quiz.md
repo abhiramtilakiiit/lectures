@@ -48,26 +48,4 @@ Accuracy is measured like bernoulli (X=1 is correct guess).
 
 Accuracy is just number of time the model is true out of tested times.
 
-There are different methods and proposed one is a combination of them:
 
-- Holdout method - randomly partition into test and train set
-- Stratification method - if the data has some form of classes (known
-  classification of obtaining the source for example) try to keep all the
-  classes in all partition so that testing and training have correspondence
-- Random subsampling method - Randomly repeat holdout to get better results.
-- k-fold cross validation method - divide data into k different partitions, use
-  one as testing and other as training, then use other as training on as
-  testing, like that k times and take average.
-
-### Confusion matrix
-
-If the data is supervised that means we have the classes. Use these classes and
-put the expected classes as columns and the predicted columns as the rows.
-Then you get the confusion matrix.
-
-## Combining classfier
-
-Boosting - every classifier has some weight, Bagging - Take the majority of each
-of the classifier.
-
-## 
