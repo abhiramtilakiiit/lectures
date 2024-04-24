@@ -37,16 +37,27 @@ end_sort:
 
 skip_neg:
     cmpq %r8, %rdi
-    je end_bad
+    je end_good
     movq (%rsi, %r8, 8), %r10
     cmpq $0, %r10
     jle increment_negetive
 
 count:
     cmpq %r8, %rdi
+    je end_good
     movq (%rsi, %r8, 8), %r10
     cmpq %r9, %r10
-    jne end_good
+    je increment
+    incq %r10
+    cmpq %r9, %r10
+    je dont_increment
+    jmp end_good
+
+dont_increment:
+    incq %r8
+    jmp count
+
+increment:
     incq %r9
     incq %r8
     jmp count
@@ -54,9 +65,6 @@ count:
 increment_negetive:
     incq %r8
     jmp skip_neg
-
-end_bad:
-    incq %r9
 
 end_good:
     movq %r9, %rax
