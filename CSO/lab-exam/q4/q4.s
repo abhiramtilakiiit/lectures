@@ -19,16 +19,15 @@ cal_length:
 finalize_length:
     incq %r8
     movq %r8, %r13      # store the length
+    movq %r8, %r11      # store the length again
     cmpq $0, %r13
     je good
     cmpq $1, %r13
     je good
-    movq %r8, %r11      # store the length again
-    andq $1, %r13
-    cmovzq %r13, %r12     # store if length is odd
-    jmp lol
+    movq %r8, %r12      # store the length again!
+    andq $1, %r12
     movq $0, %r8
-    salq %r13           # get middle index
+    sarq %r13           # get middle index
     movq %rdi, %rax     # restore back number
     jmp loop
 
@@ -51,6 +50,8 @@ end_loop:
     jmp popper
 
 pop_extra:
+    cqto
+    idivq %r10
     incq %r8
     jmp popper
 
@@ -63,7 +64,7 @@ popper:
     cmpq %rdx,%r12      # push the remainder
     jne bad
     incq %r8
-    jmp loop
+    jmp popper
 
 good:
     movq $1, %rax
