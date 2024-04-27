@@ -164,3 +164,17 @@ table for each of them.
 
 Infinite horizon is when you can just take your time and stay in your current
 state instead. But infinite sequences can be made finite using discount factors.
+
+## Inference Rules
+
+- Modus Pollens: P, $P \rightarrow Q \implies Q$
+- Modus Tollens: $P \rightarrow Q$, $\neg Q \implies \neg P$
+- Hypothetical Syllogism: $P \rightarrow Q$, $Q \rightarrow R$,
+  means $P \rightarrow R$.
+- And-Elimination: $ P*1 \and P*\2 \implies P_1$
+- And-Introduction: $ P_1, P_2 \implies P_1 \and P_2$
+- Unit resolution: $ P_1 \or P_2, \neg P_1 \implies P_2 $
+- Or-Introduction: $ P_1 \implies P_1 \or P_2 \or P_3 ...$
+- Double negation elimination: $ \neg \neg P \impliess P$
+- Resolution: $ P \or Q, \neg Q \or R \implies P \or R $
+
