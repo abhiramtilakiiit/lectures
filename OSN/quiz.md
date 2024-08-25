@@ -40,6 +40,7 @@ Every process needs to think it has its own CPU.
 It uses a process list. This process list is a list of structs of processes.
 
 A struct of process (Process control Block) should contain atleast:
+
 - Process Id
 - State of the process
 - Address Space of the process
@@ -50,7 +51,7 @@ A struct of process (Process control Block) should contain atleast:
 - Destroy a process
 - Suspend
 - View Status
-- Wait 
+- Wait
 
 #### Posix API
 
@@ -63,7 +64,7 @@ programming languages and other tools.
 
 - New copy of the parent process image is created. We get to choose what to do
   with the new fork.
-- The new process is added to process list by parent and also executed. 
+- The new process is added to process list by parent and also executed.
 - For now the same memory is modified both by parent and child.
 
 ##### Wait
@@ -77,7 +78,7 @@ programming languages and other tools.
   state is called zombie.
 - Wait is also used to monitor the exit status of the exited child process.
 
-###### Exec 
+###### Exec
 
 - The exec call is used to pass the control of a process to some other program.
 - Some variants of exec can load command line programs with arguments and all.
@@ -90,13 +91,13 @@ programming languages and other tools.
 Let the program run in the CPU but limit what it can do. Then offer priviliged
 operations through well defined channels.
 
-- This method uses system calls, which only kernel mode can execute. 
+- This method uses system calls, which only kernel mode can execute.
 - The kernel doesn't trust the user to directly specify the address of the
   function to jump to. Instead it contains its own kernel stack that it only
 initiates (during the start of the process), and uses to jump. It also uses a
 table called Interrupt Descriptor table that maps system calls to addresses.
 
-##### Trap instruction 
+##### Trap instruction
 
 - Trap instruction: OS uses this to switch from user mode to kernel mode. Normal
   routine is interrupted before this is executed.
@@ -114,7 +115,7 @@ table called Interrupt Descriptor table that maps system calls to addresses.
 
 The following is the procedure for LDE.
 
-- OS (boot): Initialize the IDT. 
+- OS (boot): Initialize the IDT.
 - Hardware: Remember the addresses for the table entries (syscall handlers).
 - OS (run):
   - Create a process list entry
@@ -166,8 +167,6 @@ and so on...
 This interrupt happens as a locking mechanism, so no other interrupt handling is
 taking place while current interrupt is raised.
 
-
-
 ## Scheduling
 
 We need to have a concept of workload to decide which one to pick at any given
@@ -178,15 +177,150 @@ $$ T_{turnaround} = T_{completion} - T_{approach} $$
 $$ T_{execution} = T_{firstrun} - T_{arrival} $$
 
 Lets go over some bad policies:
-- FCFS (First come first serve) - The turnaround will be slow if there are
+
+- **FCFS (First come first serve)** - The turnaround will be slow if there are
   processes with smaller exec time come later.
-- SJF (Shortest job first) - Still preserves fcfs, may help but still need some
+- **SJF (Shortest job first)** - Still preserves fcfs, may help but still need some
   way to interrupt the currently running process.
-- STCF (shortest time to complete first) - Preemptive SJF (don't trust process
+- **STCF (shortest time to complete first)** - Preemptive SJF (don't trust process
   and interrupt). Sees at any given point who completes first and pick them.
   
 All above have bad response times
 
-- Round robin - Try to break process into smaller ones and give each 1 second of
+- **Round robin** - Try to break process into smaller ones and give each 1 second of
   time (for eg). This reduces the response time but not turnaround. Also has
 huge cost of context switching.
+
+### Incorporating I/O
+
+When process is interactive, it itself gives up CPU and goes to a blocked state.
+But when the process is not interactive, it keep consuming time and round robin treatment
+is better. We will have to use STCF method to break the longer task to happen whenever shorter ones are blocked. Each burst of round robin can be treated as a seperate job and take up jobs. The blocked ones will have infinite end time.
+
+But we don't know the actual completion time of each job. We need a way for the scheduler to learn by observing everytime.
+
+### Multi-Level Feedback Queues
+
+Basic idea is that, there are n different queues with different priorities. The queues with higher priorities will get executed first. And scheduler rearranges process across queues based on their behaviour.
+
+Rules:
+
+- Priority(A) > Priority(B) then A runs.
+- Priority(B) > Priority(A) then A and B run on round robin.
+- If job uses up the alloted time slice, reduce the priority.
+- If a job gives up CPU then don't reduce priority (can be gamed)
+- After a while boost the priority of all CPUs, back to top (Prevents starvation of lower processes by interactive processes, also accounts for programs which change the phase into
+ a more interactive one or other way around).
+
+#### Tuning MLFQ
+
+There are different parameters in an MLFQ,
+
+- n - Number of queues
+- $t_{n}$ -  time slice of each queue
+- S - Time interval between priority boost.
+
+A typical solaris MLFQ has 60 queues, time slice ranging from 20ms to
+100ms. And S of about 1 second.
+
+## Networking
+
+### Network components
+
+- Host - Any device that can send or receive traffic. Like smartwatch, computer, laptop, phone. Host can be either server or client.
+- IP Address: Any host needs an address to send data to.
+- Repeater - Is used for regeneration of signals and long distance communication.
+
+### Types of repeaters
+
+- Hubs: Multi-port repeaters, they just take input from a port and just blasts it to
+all the devices and doesn't channel each device like a switch does
+- Bridge: It is a switch but only connects two ports. They can differentiate the two ports.
+- Switches: These devices facilitate communication within a network. They can assign different ports to different devices and have multiple ports.
+- Routers: This is the actual device that facilitates communication with different networks. They also provide tools like security, filtering and traffic control and port forwarding. They maintain a routing table and have IP address of every network attached to it.
+
+### OSI
+
+It is an educational standard that is used to explain different layers of networking.
+
+1. Physical: Something physical that transports 1,0 bits. Could be wires (ethernet) or Wifi
+2. Data Link: Hop to Hop: Establishes reliable link between two nodes. Uses MAC Addressing 
+scheme, eg: Wifi card or Network Card.
+3. Network: End to End: Manages end-to-end routing through different routes in a large 
+network. Uses IP addressing model. Eg: Routers and L3 Switches
+4. Transport: Service to Service: Ensures data is transferred to that particular process.
+ Uses ports for addressing. 0 - 65535 etc, 1024 - 49151 (registered ports).
+5. Session: manages connection between different devices.
+6. Presentation: handles encryption and compression, ensures that data format is understandable.
+7. Application: Provides network service to application processes, web browsers, email
+clients and other protocols like https, smtp.
+
+The L5, L6, L7 are grouped together as Application to Application (L7).
+
+In real life, a more simple 4 layer networking is usually observed.
+
+1. Application Layer: Protocols used are HTTP, SMTP, RTP, DNS
+2. Transport Layer: Protocols used are TCP, UDP
+3. Internet Layer: Protocols used are IP, ICMP
+4. Network/Link Layer: Protocols used are DSL (Telephone), Ethernet, 802.11, SONET
+
+### Socket API
+
+There needs to be some way OS supports networking. In UNIX it is through the Socket API.
+The network service API. There are reliable streams and unreliable datagrams. This API allows, applications to attach to different ports.
+
+Different system calls which are a part of SOCKET API:
+
+- socket() - creates a new socket with either TCP or UDP and returns fd.
+- bind() - associates the socket with a specific IP and port.
+- listen() - in server, used to listen to incoming connections from clients.
+- accept() - Waits for the client to connect and returns new fd on both sides.
+- connect() - client uses to connect to server
+- send()/receive() - use the new fd to transfer data
+- close() - terminate the connection.
+
+To uniquely identify the ports, the tuple: (IP address, protocol, port) is used. IP address is a device specific thing, protocol is socket specific, and port is what you bind.
+
+### Putting data together
+
+The transport layer packages data into segments and adds L4 hearders.
+The network layer then adds IP address to it and calls it Packet.
+Then finally t he data link layer adds mac-address and calls it Frame.
+
+Multiplexing involves handling data from different multiple sockets and adds a
+tranport header. Demultiplexing involves using these hearders to get back data.
+
+### Transport layer (TCP/UDP)
+
+#### TCP
+
+- TCP socket is identified by four tuple: Source IP, source port, Destination IP and Destination port.
+- Receiver uses all 4 to segment appropriate socket
+- Server may support many TCP sockets.
+- Each socket has its own client
+
+TCP has following features;
+
+- Connection oriented: Connection is established then data is transmitted
+- Reliability: Makes sure every packet reaches the destination.
+- High overhead on error checking
+- Flow control
+- Error detection and correction
+- Congestional Control
+- HTTP(S), SMTP, FTP
+
+#### UDP
+
+- Uses only a two tuple: dest ip, and dest port
+- Receiver uses port to redirect to same destination port.
+- UDP segments with same destination port but different IP or source port.
+(basically doesn't care where the data is coming from)
+
+Features:
+
+- Not connection oriented: There is no connection and uses timeouts instead.
+- Unreliable
+- Faster
+- Has error checking but only disregards errorneous packets
+- No congestional control
+- Streaming, VoIP, DNS
