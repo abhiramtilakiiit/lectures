@@ -337,3 +337,50 @@ Applications of HTS:
   of histones, transcription factors, nucleosomes etc.
 - Metagenome Analysis - To sequence different species of bacteria etc. for taxonomy
   and phylogeny.
+
+## Sequence comparision
+
+After sequencing a lot of genomes we have to be able to use this knowledge to
+find significance in similarity between pairs of these sequences.
+Another fundamental problem in cDNA sequencing it to find the function of a
+given new protein. There are other uses for sequence comparision
+
+- Identifying species of any given living cell
+- Phylogenic analysis of any given species
+- Genome comparision between different species to find matchin traits
+- Genome comparision between different individuals of same species to study
+  phenotypes.
+- Genome comparision between different diseases or cancers cells to understand
+  mutations.
+- Structure prediction for RNA.
+- Identifying overlapping regions of DNA which is widely used in sequencing
+- Identifying repeats; copies of the same domain
+
+### Methods of sequence comparision
+
+- Graphical - Dot plots
+- Sequence alignment - pairwise alignment, comparing two different residues to
+  find the amount of distance between them.
+
+### Dot plots
+
+- Comparing different sequences - Regions of similarity and finding overlap
+  regions.
+- Self-Comparision - Finding rearragements, internal repeats, finding
+  self-complementary sequences so RNA folding can be predicted.
+
+It has the advantage that it just shows every matching combination leaving the
+identifier to pick the useful.
+
+To avoid random matches we often use a sliding window and compare for matches.
+This sliding window maybe shifting by 1 length or k length. We try to find the
+apt window size for this task, and even if the windows differ, we can introduce
+**stringency** which is the amount of difference to call it overlapping in plot.
+
+Uses:
+- If there are larger diagonal matches, that means more "conserved" regions.
+- Can be used to find domain homologies.
+- Find overlapping sequences
+- Internal repeats and dupilcations
+- Can be used to find insertions and deletions for shifted diagonals
+- To identify self complementary regions in RNA
