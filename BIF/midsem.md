@@ -378,9 +378,108 @@ apt window size for this task, and even if the windows differ, we can introduce
 **stringency** which is the amount of difference to call it ovGerlapping in plot.
 
 Uses:
+
 - If there are larger diagonal matches, that means more "conserved" regions.
 - Can be used to find domain homologies.
 - Find overlapping sequences
 - Internal repeats and dupilcations
 - Can be used to find insertions and deletions for shifted diagonals
 - To identify self complementary regions in RNA
+
+## Pairwise alignment
+
+### Memory Usage
+
+Memory usage is a common challenge that we face when using DP (mn) algos for comparing against
+big bases (nucleotide and genomes of billion residues long).
+
+- One common approach useful only when finding score of the alignment instead of the alignment
+is to just forget the rows which are not i-1, and j-1.
+- Another common approach is divide and conquer Hirschberg's algorithm: This ensures full alignment.
+The steps are:
+  
+  - First divide the grid using the middle column m/2. Then use the linear space algorithm above to
+    find the scores on each point on the column, the one with highest score will definitely lie on
+    the alignment.
+  - Now the main point which gives memeory advantage is to ignore the the bottom-left and top-right
+    parts of the middle alignment. This is because the only allowed moves are bottom and right, so
+    it is not possible to include calculated middle point and also be a part of alignment.
+  
+Some popular EMBOSS programs which use this are:
+
+- Emboss matcher - local alignment, linear version of water
+tcher - global alignment 
+
+### Heuristic Algorithms
+
+These algorithms, locate short stretches using preprocessed databases, and then
+extend the match for alignment. Usually fast but may sometimes not match the ideal ones.
+
+#### FASTA - Fast Alignment
+
+Here are the steps:
+
+- Use a lookup table to get all k-tuple matches and put them on a dotmatrix.
+- Look for adjacent hotspots in the same diagonal and join them to form larger segments
+- Find the highest scoring diagonals out of these
+- Use another PAM Matrix as a scoring matrix to assign scores to these segments, and
+  consider only the initial segments (greater than the initn threshold)
+- Now join the closer diagonal segments using gap penalties
+- Compute the alternative local alignments after the diagonal sequence is formed.
+- Use DP to actually align the best randing sequences from above local alignments.
+
+#### BLAST - Basic local alignment search tool
+
+- Use the lookup table to find shorter k-tuple matches. Each k-tuple has a HSP score,
+  only the ones that pass this score are used for searching.
+- These matches are called hits, overlapping segments form longer segments.
+- Pick one of the segment and try to extended it in either direction until the
+  score drops below the threshold.
+- Now join the closer segments similar to one in fasta and compute alternative local
+  alignments for the resulting sequence.
+
+Blast is so widely used that there are many alternatives to it depending on the usecase:
+
+- Psi Blast - Position Specific Iterated Blast: This constructs a scoring matrix with mulitple
+  sequence of hits. Also uses the scoring matrix from the previous matches and iterates multiple
+  times until convergence is reached. This is useful to find homologs among sequences with 10-25%
+  match.
+- Phi Blast - Pattern hit Iterated Blast: Uses regular expressions and local alignment to find
+  sequence motifs in proteins.
+
+#### Statists in BLAST
+
+Statistics of dsitribution of local alignment is well known but little is known about the distribution
+of global alignment.
+
+By calculating the distribution of scores of optimal alignment for 10,000 random proteins, it was
+estimated that K = 0.035, $\lambda = 0.252$.
+
+- The E-value or the expectation value of having HSP above score S is:
+  $$ E = K(mn)e^{-\lambda S} $$
+  Here m and n are the length of the query sequcence and n is the database size.
+
+- The raw scores in blast have no meaning, they need to be normalized (to be made into
+a normal curve). For this we use the k and $\lambda$. For score S we define bit score (S')
+
+  $$ S' = \frac{\lambda S - ln K }{ln2} $$
+
+Thus E-value can be written in terms of bit scores as $E = mn2^{-S'}$
+
+#### Inferring homology
+
+- For proteins, if we have 45%+, that means there is high similarity in both structure and function.
+- 25%+ means they are sparsely related and have similar folding pattern
+- 18-25% - means they might or might not be similar but cannot
+rule out homology.
+
+Since low complexity regions might be similar even though they
+are not homologous, we usually can't imply homology from similarity.
+Even the other way around is mot possible, homologous sequences might not be similar
+
+Good rough estimate in BLAST is to have
+
+- 75% match in nucleotide, with E-value less than $10^{-6}$
+- 25% match in protein, with E-value less than $10^{-3}$
+
+
