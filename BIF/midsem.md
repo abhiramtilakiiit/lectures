@@ -173,7 +173,7 @@ To obtain cohesive ends we need to add a linker molecule or adapter molecule.
   - They can be used to make a phyical map of genome
   - They can be used to localize the origin of replication
   - Position early and late genes into this map.
-  - Test any of these genes for biological activtiy.  
+  - Test any of these genes for biological activtiy.
   - We can mutate any one of these to gather information about genes expressed.
   - Variations in DNA; mutations can be studied using restriction sites.
   - Genetic engineering - Used to cut and paste any genome to obtain the desired one.
@@ -482,4 +482,203 @@ Good rough estimate in BLAST is to have
 - 75% match in nucleotide, with E-value less than $10^{-6}$
 - 25% match in protein, with E-value less than $10^{-3}$
 
+### PAM Matrix
+
+Percentage accepted mutation is the measure of how much of a sequence gets
+mutated. One common method to score the matrices based on the probability of 
+mutation is log-odds;
+$$ S(a|b, t) =  \frac{P(a|b, t)}{q\_a q\_b} $$
+where qa and qb are the frequences of amino acids.
+
+PAM matrices are originally derived from global alignment of closely related
+sequences, then normalize the matrix such that there is 1% chance for change.
+
+$$ M\_n = (M\_1)^n $$
+
+Here n is called the PAM distance, which is a measure of evolutionary distance.
+
+There are some problems with this model:
+
+- We just assume that all the AA mutations are uncorrelated, but there are many
+  factors like some parts being conserved and less mutating,
+- idea of extrapolating single mutations to distantly related proteins
+
+### BLOSUM Matrix (Block Substituition Matrix)
+
+Maintains a BLOCK database of conserved protein sequences, and directly maps
+transition probabilities of distantly related AAs
+
+These are used to find some remote homologies but no evolutionary model can be
+based on this. The BLOSUM-K means this matrix is useful to find K% of similarity
+
+Steps to get a blosum matrix:
+
+- Derived from local ungapped alignment of distantly related sequences. We
+  construct a basic frequency map of each substituition.
+- If % identity of these entries is more than k, then we just cluster those
+  entries.
+- The we find the Expectation value of the pair freq and calculate the log-odds
+  and then scale it to have integers
+
+$$ log\frac{P\_f(observed)}{P\_f(expected)} $$
+
+### Reward/Penalty ratio
+
+The reward(n) and penalty(m) ratio calculation, this value changes based on the
+identity of sequences we are looking at. 99% conserved shud have m=-3, 95% m=-2,
+and 75% etcc m=-1. The reward penalty ratio shud be increase with divergence of
+sequences.
+
+
+### MSA
+
+There are conserved regions even in distantly related organisms, thus we need to
+align multiple homologue sequences together in columns.
+
+MSA is used to find the conserved and non-conserved regions instead of just
+blind pair-wise alignment.
+
+Uses of MSA in genes:
+
+- Genome sequencing - shotgun sequencing
+- Inferring evolutionary relationship and constructign phylogentic trees
+- DNA barcoding
+- Discovering new regulatory elements and finding primers, and probes for DNA
+  microarrrays
+
+In protein we can use it to:
+
+- Finding homology in proteins and building phylogentic trees
+- constructing scoring matrices
+- finding motifs and predicting the structure or folding.
+
+Best MSA happens when we use non-conserved regions of closely related species
+and conserved regions of distant species.
+
+#### Pairwise alignment
+
+Doing dp is very long because it requires O($L^N$) complexity. But there are
+methods to make it easier:
+
+- MSA Algorithm or Carrilo Lipman - If strings are similar, then the alignment
+will be close to the diagonal, so calculate pairwise alignment on projection of
+main diagonal to 2-D and disregard other regions so no need to waste time
+calculating regions.
+
+- There is another method called consensus where we align two sequences and
+  calculate the consensus of the two sequences and use it to get the next
+  sequence. To avoid problems with having order, use the P-W pairs to build
+  scores.
+
+A better formalization of above is profiling/clustering based alignment, where
+we construct hierarchial phylogenic trees based on the scores of the pairwise
+alignment and use that in the next iterations.
+
+- When we align two sequences and they are very similar, we call it an
+  alignment.
+- We then align those alignments, we take weighted average based on the
+  scores we have calculated.
+
+#### Localized MSA
+
+To uses:
+
+- Identify motifs in proteins which have functional importance. If we want to
+  know what function a protein performs, we try to find motifs.
+- Helps in Global MSA for distant species
+
+Glossary:
+
+- Motifs/Patterns - A syntax of word / regular expression which describes a
+  well-conserved region which charecterizes a protein family
+- Profile - A probabilistic syntax representing a well-conserved region. This
+  can be represented in terms of PSSM (Position specific scoring matrix) or HMM
+  (Hidden Markov Matrix).
+
+Profile/Motif based searches use family information in their searches, to
+improve prediction between distant family members.
+
+#### Profiles
+
+It is a matrix which stores log-odds. To build a profile:
+
+- Align the sequences in the family using MSA
+- Extract the most conserved regions and create a profile
+- Compute the log odds ratio for each alphabet.
+
+Better than patterns because there is no relative probability of occurence of
+characters in pattern.
+
+#### Blocks
+
+They are patterns but without gaps, usually found when doing MSA highly
+conserved regions with no gaps.
+
+## Modelling Molecular Evolution
+
+We use the concept of conditional probability, and turns out the base
+substituition is the only popular way, all other ways are rare.
+
+If we only compare the number of mutations from S0 to Sn, we might miss the
+hidden mutations, thus we have to consider a markov matrix.
+
+Challenges with markov matrix:
+
+- The history is lost, but in reality one substituition might lead to another
+  until a stable is reached which is not portrayed.
+- The 3rd nucleotide in codon might change the AA doesn't change, hence the
+  probability of mutation increases there.
+
+### Jukes-Cantor Model
+
+The probability of all substituitions is $\frac{\alpha}{3}$.
+
+We can define $\alpha$ as mutation rates, this allows us to have
+the formula
+
+$$ \alpha = (substituitions per site)/(time step) $$
+
+The eigen-vectors of Jukes-Cantor matrix are even number of -1s (0,2)
+The eigenvalue is $1 - \frac{4\alpha}{3}$
+
+We also have a result for general value of $\alpha$ when time is t
+
+$$ \alpha\_t = \frac{3}{4}(1 - \left( 1 - \frac{4\alpha}[3] \right)^t) $$
+
+Usually we have the value of $\alpha\_t$, not  $\alpha$ and t. But we cannot
+even calculate that. So we use a rough estimate.
+
+$$ \alpha t = d = -3/4 ln ( 1 - \frac{4}{3}p ) $$
+
+But this is called Jukes-Cantor distance.
+
+### Distance Methods
+
+Uses the Jukes-Cantor or other distances
+
+- UPMA - assumes molecular clock is active
+- Frich-Maro - unrooted
+- NJ distance, uses some wierd M(i,j) thing - unrooted with neighbors considered
+
+### Character Based Methods
+
+- Maximum parsimony distance: uses minimum number of substituitions required to
+  go from one dna to other
+
+- Maximum likelyhood calculates the likelihood of a certain alphabet appearing
+  in the aligned column.
+
+### Bootstrapping
+
+This just randomly misaligns the original sequences, which may cause changes in
+the trees produced. Useful when we analyse how often a cluster or branch is
+found to calculate the confidence of the method.
+
+## Phylogenic Trees
+
+Number of rooted trees is given by:
+$$ \frac{(2n-3)!}{2(n-2)[n-2]!} $$
+
+Number of unrooted trees is given by:
+$$ \frac{(2n-5)!}{2(n-3)[n-3]!} $$
 
