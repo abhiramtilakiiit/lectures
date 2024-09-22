@@ -324,3 +324,22 @@ Features:
 - Has error checking but only disregards errorneous packets
 - No congestional control
 - Streaming, VoIP, DNS
+
+### TCP Header
+
+How to calculate RTT:
+
+$$ EstimatedRTT = (1-\alpha)\*(EstimatedRTT) + \alpha\*SampleRTT$$
+$$ DevRTT = (1-\beta)\*(DevRTT) + \beta|SampleRTT - EstimatedRTT| $$
+$$ Timeout Interval = EstimatedRTT + 4\*DevRTT $$
+
+This is how we change the RTT based on the previous responses. Here the Alpha
+and beta values are fixed.
+
+EstimatedRTT is the estimated weighted moving average. DevRTT is the Deviation
+of the Estimation from sample observed. Finally the timeout interval is
+an estimated but add a bit of deviation just to make sure.
+
+Watch video bruv: https://invidious.nerdvpn.de/watch?v=JFch3ctY6nE
+
+###   
