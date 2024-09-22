@@ -329,9 +329,9 @@ Features:
 
 How to calculate RTT:
 
-$$ EstimatedRTT = (1-\alpha)\*(EstimatedRTT) + \alpha\*SampleRTT$$
-$$ DevRTT = (1-\beta)\*(DevRTT) + \beta|SampleRTT - EstimatedRTT| $$
-$$ Timeout Interval = EstimatedRTT + 4\*DevRTT $$
+$$ EstimatedRTT = (1-\alpha)*(EstimatedRTT) + \alpha*SampleRTT$$
+$$ DevRTT = (1-\beta)*(DevRTT) + \beta|SampleRTT - EstimatedRTT| $$
+$$ Timeout Interval = EstimatedRTT + 4*DevRTT $$
 
 This is how we change the RTT based on the previous responses. Here the Alpha
 and beta values are fixed.
@@ -340,6 +340,82 @@ EstimatedRTT is the estimated weighted moving average. DevRTT is the Deviation
 of the Estimation from sample observed. Finally the timeout interval is
 an estimated but add a bit of deviation just to make sure.
 
-Watch video bruv: https://invidious.nerdvpn.de/watch?v=JFch3ctY6nE
+Watch video bruv: <https://invidious.nerdvpn.de/watch?v=JFch3ctY6nE>
 
-###   
+## Memory Virtualization
+
+### Goals
+
+- Transparency - create an illusion to the processes that there is infinite
+  memory, and not to worry about what is happening behind the scenes
+- Performance - Minimize the overhead in space and time for accessing memory.
+- Protection - Protect the process from other process and the OS itself
+
+They requirements can be simplified as:
+
+- For efficiency we need to have hardware level support.
+- OS can control by keeping track of which memory are freed and which are in use.
+- Ensuring that on application has direct access to memory.
+- Allow programs to flexibly use address space the way they like.
+
+### Memory API
+
+This API is very misused, thus we don't have access to the actual system calls.
+
+- malloc() - Used to allocate memory in the heap
+- free() - Used to free the allocated memory
+
+These are C functions in the stdlib and under the hood they use brk() and sbrk().
+
+### Common Errors when using in API
+
+There are many common errors that you might come accross when using this API.
+
+- Overflow - This is caused when we try to access or write to memory that is
+  bigger than the allocated memory.
+- Uninitialized Read - This is caused when we read the malloc memory without
+  even initializing it with anything like 0 bits.
+- Memory Leak - This is caused when we don't free the memory after we allocate
+- Dangling Pointer or Use after Free - This is when we try to use the memory after
+  is has been freed.
+- Double Free - When we try to free something we already freed.
+- Invalid free - when we try to free something we didn't malloc
+
+#### The Base and Bounds Approach
+
+We cannot do the virtualization at the physical level since the offset from
+which the memory is allocated in the OS will be different and we need to
+do some sort of translation from the physical memory to the virtual one.
+
+One of the approaches is Base and Bounds approach:
+
+- Have a pair of hardware registers called base register and the bounds register in
+the MMU (memory management unit), every process has its own.
+- The base register tells the offset from the physical memory the VA starts
+- The bounds register just keeps a track of virtual or physical bounds of the
+process memory and raises interrupt when more than that is accessed.
+
+The hardware based VA to PA conversion is called Address Translation, and these
+both registers can change anytime thus called Dynamic relocation.
+
+There are a lot of problems with this approach main one being that, it can't
+handle cases properly where process goes beyond memory without closing the program.
+Also there is a lot of space wasted free between the stack and the heap.
+
+#### Segmentation
+
+We instead try to keep heap, stack and code different and have a table for it
+instead which maps in such a way that first two bits code for whether it is
+stack or heap or code, and the further bits represent the offset.
+
+There are lot of problems still:
+
+- Context Switch: Segment registers should be stored along with other registers
+for context switching
+- Each process has multiple segments and can lead to external segmentation: This
+means there are free segments everywhere, but if some process asks for a large
+memory again, it has to free the previous ones and allocate new memory.
+- OS has to find free memory everytime.
+
+To avoid external fragmentation, one good approach is to fix the smallest amount
+which is called paging.
