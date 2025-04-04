@@ -1,0 +1,302 @@
+<!DOCTYPE html><html
+  lang="en_US"
+>
+  <head>
+    <meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    /><title>Login | Central Authentication System - IIITH</title>
+    
+      <link rel="stylesheet" type="text/css" href="/cas/webjars/normalize.css/8.0.1/normalize.css" /><link rel="stylesheet" type="text/css" href="/cas/webjars/bootstrap/5.3.3/css/bootstrap-grid.min.css" /><link rel="stylesheet" type="text/css" href="/cas/webjars/material-components-web/14.0.0/dist/material-components-web.min.css" /><link rel="stylesheet" type="text/css" href="/cas/webjars/mdi__font/7.4.47/css/materialdesignicons.min.css" /><link rel="stylesheet" type="text/css" href="/cas/webjars/datatables/2.1.0/css/dataTables.dataTables.css" /><link
+        rel="stylesheet"
+        type="text/css"
+        href="/cas/css/cas.css"
+      /><link
+        rel="stylesheet"
+        type="text/css"
+        href="/cas/css/custom.css"
+      /><link
+      rel="shortcut icon"
+      href="/cas/favicon.ico"
+    /></head>
+
+  <body class="login mdc-typography">
+    <script type="text/javascript" src="/cas/webjars/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="/cas/webjars/datatables/2.1.0/js/dataTables.js"></script>
+<script type="text/javascript" src="/cas/webjars/clientjs/0.2.1/dist/client.min.js"></script>
+
+<script type="text/javascript" src="/cas/webjars/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script type="text/javascript" src="/cas/webjars/css-vars-ponyfill/2.4.7/dist/css-vars-ponyfill.min.js"></script>
+    <script type="text/javascript" src="/cas/webjars/material-components-web/14.0.0/dist/material-components-web.min.js"></script>
+<script type="text/javascript" src="/cas/js/cas.js"></script>
+<script type="text/javascript" src="/cas/js/material.js"></script>
+<script type="text/javascript" src="/cas/js/custom.js"></script>
+<script>
+  if (typeof resourceLoadedSuccessfully === "function") {
+      resourceLoadedSuccessfully();
+  }
+  $(() => {
+      typeof cssVars === "function" && cssVars({onlyLegacy: true});
+  });
+  let trackGeoLocation = false;
+</script>
+
+<div
+      id="main-content" class="container-lg"
+    >
+      <div id="content" class="d-flex justify-content-center">
+      <div
+        class="loginviewt-container"
+      >
+        <div
+          id="loginForm"
+          class="login-form"
+        >
+          <div>
+      <div>
+        <!-- <div
+            class="service-ui"
+            th:replace="~{fragments/serviceui :: serviceUI}"
+          >
+            <a href="fragments/serviceui.html">service ui fragment</a>
+          </div> --></div>
+
+      <div class="logo-right">
+        <img src="./images/iiit-new.png" alt="IIITH Logo" style="object-fit: cover" /></div>
+      <div class="logo-right-dark">
+        <img src="./images/iiit-logo-white.png" alt="IIITH Logo" style="object-fit: cover" /></div>
+
+      <div class="form-wrapper">
+        <div class="container" style="text-align: center">
+          <!-- Left Section --><div class="left-section">
+            <div class="left-section2">
+              <h1 class="title">IIITH</h1>
+              <div class="login-stack">
+                <p class="portal">LOGIN</p>
+                <p class="portal">PORTAL</p>
+              </div>
+            </div>
+
+            <!-- Additional Text Below IIITH and Login Portal Text --><div class="additional-text" style="font-weight: bold">
+              Please make sure you logout from all the applications and close
+              the browser window when you have finished using the system.
+              <br /><br />
+              IT Support will NEVER ask for your password and/or any other
+              personal information. Please do not reply to any such mail and
+              report them immediately to IT support.
+            </div>
+          </div>
+
+          <!-- Right Section (Form) --><div class="right-section">
+            <!-- <form id="fm1" class="login-form" th:object="${credential}" action="login" method="POST" onsubmit="loginFormSubmission();">
+                        <div class="form-group">
+                            <input class="mdc-text-field__input form-control" id="username"
+                            size="25"
+                            type="text"
+                            th:readonly="!${@casThymeleafTemplatesDirector.isLoginFormUsernameInputVisible(#vars)}"
+                            th:field="*{username}"
+                            th:accesskey="#{screen.welcome.label.netid.accesskey}"
+                            autocapitalize="none"
+                            spellcheck="false"
+                            autocomplete="username" required>
+                        </div>
+                        <div class="form-group password-wrapper">
+                            <input type="password" id="password" name="password" placeholder="Password" required>
+                            <span class="eye-icon" onclick="togglePasswordVisibility()">👁</span>
+                        </div>
+        
+                        <a href="#">Forgot Password?</a>
+                        <button type="submit">Log In</button>
+                    </form> --><noscript>
+              <div role="alert" class="banner banner-danger banner-dismissible noscript-message"
+                style="font-weight: bold">
+                <h2 style="text-align: center; color: red">
+                  Disabled JavaScript Detected
+                </h2>
+                <p>
+                  JavaScript is disabled in your browser. <br />
+                  Please enable JavaScript to use the login form.
+                </p>
+              </div>
+
+              <style>
+                form.login-form {
+                  display: none;
+                }
+              </style>
+            </noscript>
+
+            <form class="login-form" method="post" id="fm1" action="login"
+              onsubmit="loginFormSubmission();">
+              <div id="login-form-controls">
+                <h2 class="text-center">
+                  <i class="mdi mdi-login fas fa-shield-alt" aria-hidden="true"></i>
+                  <span style="margin-left: 5px">Enter Credentials</span>
+                </h2>
+
+                <section class="cas-field form-group my-3" id="usernameSection">
+                  <!-- <label for="username"
+                                       class="mdc-text-field mdc-text-field--outlined control-label w-100"> --><!-- <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__notch">
+                                            <span class="mdc-floating-label"
+                                                  th:utext="#{screen.welcome.label.netid}">Username</span>
+                                        </span> --><!-- <span class="mdc-notched-outline__trailing"></span> --><!-- </span> --><div class="form-group">
+                    <input class="mdc-text-field__input form-control required" id="username" size="25" type="text"
+                      name="username"
+                      accesskey="u"
+                      autocapitalize="none" spellcheck="false" placeholder="Email" autocomplete="off" tabindex="1"
+                      required value="" /></div>
+                </section>
+
+                <div class="password-wrapper">
+                  <input class="mdc-text-field__input form-control pwd" type="password" id="password"
+                    placeholder="Password" size="25" required accesskey="p"
+                    autocomplete="off" name="password" value="" /><span class="eye-icon" onclick="togglePasswordVisibility()">👁</span>
+                </div>
+                <div class="password-reset">
+                  <a href="https://passwordreset.iiit.ac.in/forgotpassword/" style="margin: 0px; font-size: 14px">Forgot password?</a>
+                  <a href="https://passwordreset.iiit.ac.in/" class="reset-password" style="
+                        margin-bottom: 0px;
+                        font-size: 14px;
+                        margin-left: 10px;
+                      ">Want to reset password?</a>
+                </div>
+
+                <div class="mdc-text-field-helper-line invalid-feedback" style="display: none">
+                  <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+                    <span id="passwordValidationMessage">Password is a required field.</span>
+                  </div>
+                </div>
+
+                <section class="cas-field form-group my-3">
+                  </section>
+
+                <section class="cas-field">
+                  <input type="hidden" name="execution" value="957a99a5-90ae-4a95-a1ed-da4286c9ced2_ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0lzSW10cFpDSTZJakUzTW1FMk1tVmtMVEU1WlRVdE5EWmlOQzA1WXpGbUxUa3dZV05sTURBM01ETTVOeUo5LmN0R3VJd05zVDFqaXhnM0lNYzA4aG1veldrQWM0OGRhLVQwQVozbldFNWRqd05Db0RkeXZLS0ZQQURYRlEyZ19KdHFxdmQwWWE5RDQtbk5vcUZIQUN3SWFCWjRFdlBOVVhMLWh5eTctNTdpRXRHcURzbldnMXd5YUtMSDJubHJlV1lGMmU1b0l4RlF1N0E1TVlFM2gxVmlmTlRCb2x3NVBSSEtFRC1CR0F6WEJhZ1MyWmk0eWpsQS0ybGtMTTd2b0h2UFVDSE9hTHZxNERadi0xQ1ZBWTJ0eW1xQUNrRkRxa3c3aGtNZUdrQ0VBa1Z2OUpvZEhScXlES2hqU0FpVTBEVFVTeWJGel91NHg3U09wNnI0Q2VwY3VBcFF2anVJaTItSGlLMnFhNFBETG9VZ2tUUnpWS2R2OVR1Yk51TV96TUlVZ2w5ejNHajNIV2JSXzdjLVZ4eWRHdWtCMF9PdzVwYUpCRnFKQjhPeXljeFhraTNkQmsySEdoQ25UUHhWOGQ0R2Y3cEw1Vmd5UnRSc2FWV2R2NGROaURaVW5ZX0lrbnBLY25RUlFWa05FbFlhT1ktX21MblFoYS1lTTJhSFRocUp3YVM1M2Ixc0JER2xhR2MzMVUxLWZ3RGU4M2tJUFIzN1Z6ektQbHBsTVJCc3VtemF1RmtURW41dGM0WElyUEZtNWxabXJUcVdnUWctWHdUd1lvSDVKMXJQS3BFcENmWHlfTVhwd1JEZE9LM1RnUkk4cjl2VzZsNkg1aDZtTXRDeFF5TGRXdE9QTEQ5aUQ3Wnl1V3dmcVNEQzdYemxGMWRzcnVjdFVzZ3pIcjZXdnkzRlZYNllwSU5DcGd1UXl4VUlqZHA3NVAwVGNXMGdZZ1RVSFRnYjNBdVI3VDlXeTBPbkRZR0tDSll1V1BYS0c1T2pwNXBhRUsyeUtZLWhfS18tdlBMZmxsaUpzeUNneW5ZWU1LM2NoWGt1ekc2TWdmTGlVVGVreC1GWGs3Y3V5UzZtN1J3YmdGRmlqUjc1VUFBdlhzLWtfcWdyR1ZjclUtcGNSdlBSV3p0UmFMZW9YaEZvU2NwV1dLLXNlLTBlOG5zZXJTOU9BRklycGxMdFptZk11eUVMaGhBQWFKZDM2YlRfaDk5cXAyNEhuWTd0T2dGSWFNNXZWUnU3cWZaMFFHZk13clZreGJrTklLRUJoTWZOOVZDemczQXQzOVdremRuR1Y2cC1OX2oyZWlJMFFhM0laVE9kY2xrcmdXZUtjTmVmNmZGbWtnWVdZeEZuRDhmZHAyendFUlpRZnVYVDVjQ2FFaWV0ZDVwcmtiQXY2c2Z3ZVFDUTdkUHdXczBkX3lhMDJlbkxycElPOUtzcmY2QXlPZFZsS0Q5WVFtdDcxNWg1elM2eC1LaHRITkxHNWxFTWhjYlV3aU1ya3dJT01ZaXAwNThTaVppVnhZa2NILWVUSWdQYk9VNDFKOXlvbkhnVzFFaWVFQ21XUlN6Q2RnNU15dVJURGtFQkZXSHlZeVhIZzhqeEg1Y1NiUjNsY2ZkM0VQT1RwbWNTWUNfYzloTFFKWGtfeW81U0NBNVg4eU5zblhxSTlZc2JrY1R0Sm1hQXVTMXFyS200ekY3aTFYU1ZZTlNuaU1kaTNuN3dyU2lRb2NXdGEyU05PeHFNZWQxakNoUS15VG0yanVmU2xuZ3hNdDFaTnAwUDVFM19GckpvUkxiNFNXNGFPTlpmUkE2YnpsbDI2OVFLNUFJQy1fc3lndWVSbXp1TlUtNWgxX1A3UkROczRteHhXN09haG1rcHo4dUxIdlJZbURMVWwwYThFcWRrQ0F4TTZxVU1zeV8ySGpmUGFSdWVzQXJZbnA0US1FdW1xUFd4Q0F2RkYtcWpxTGFOMzI3cjlReVBBNFJvTmZSRDZqUDZHYzc5Y1EyTVFvSW5SRnZXU3M0Q2J0X2RyVnZlTzFTNTJUaXJOdlphM042UTViQU9QQTZFVEh2V2xfeERLZVpoUHgtdVZwbFpOa0lRS1lqZ0dWc1ZsMFRtY2FUby1rclNWbkdFc055QWZRZXlwZlBFWkh0VXNxUGUwZjlja1kwRFFLQnFlMktJdEoycUpsaS1tVFoyRUVfTlQ1TFZkWDctYURTQ01xckFmaktsWkJzZkc0RkNQNDc2eFhQaXFlVFNReTJaZU9fTkdkSXRrNlM2am1DbkFMbVJLaUR6TEtMeWtxdkFkcUhrNW5IcXNabXVBVGFoWUNEeFZfWWRPa2pncXk1YXhhX1RZYjA2YVVqWlVWdFg0cGUxUE5ZRUdFRWpYTWUyaXJrZDVuYVNScW9memtYRGFPaGgxUlhOVU9QYlRLWnFaTlJ3bGRONF9tWVdGU1hGOVBTVmZKaTRwaGJQM3dMcHY5Qlg3TmdXbzZNZk9naG9PSlM4eWk2SW02ZS1Nbk8zMFpIUHpNUGUtN0RocXNYcmU4MXdnZlJHUlMtb3JBVy10T21hV3lUTE1EQ2VYTTBqX2JqaDdrYlFsbF9wQ3I4LU1XN2RPQU9uQ3VWZk01SG5PcERiQkUtb1hkZ2dRVEhESGpSMXR5QXAwMGVCMGF0R1ZxcEZpQXdWQ3ZIXy1hOTk4RklJcFlMLVROTWRkbExuaWhMQTRRajZpMkxuZ280UFVac2xfbTJqdksxQXRwZFd1NmxPYW9fT3h6WXF2cFNDcWdmLWZib0g4UE1FLWJWd2hfdS1zaVlRdnl0XzFTeWhHdWJHNWJtMjVjcU5QOF9Gd1lmVG1DUFNXLThIb3VwUEJsdEU0WUpfOFQ3VFRMLVRCdnhyNmw3MDhMWEVzN09hcVJxcGRIZWE3WTJ0NU9OZldmdWpKYXpPS1QxajdnYVdYQlNjMk4tVFJkYWVFN0RvcGxBV1NfXzViYUxZa2MtZmxiVUYxeU91S3REZjZCY2pScWhSeFg2YXBsb1JoRWpzdWtmZ2dDVG5KX0lwam9ld0ZvT2R3TjBxU3l4RzlHdi1MR19VSVN0V004X1dZa2xWc0xKbG1jWnp3YjNVMGYwWWNCVlh6QmhtR2VhUnVZenZ6d081b0JyTU8yOEpwQlk1aVlCVk9MdVJTVlNqQXVzYjFhcGU2akJYeDNzbnNBRk1LUWlERmhSSGFuUXJuXzFCZlJTeE00M1U5S0pFQi1yZFJCbkhJRmRwZENpYnhBYk1waHdQS1lXMjhwdlZOOTV6VXBKVldHcjJ3NzdsR052Q2pHTlkzcERLZHdacllJMFlDbmxVd1hWVEtxYkJTYnRiSzI5TmtYdXJTV2cxU056SHpaVWVaa21nc3gxYXJuejlZYVhmSXVCbDhCTXhpTlBwNzNPX3lkRWhrYVhVZkpya0VWVjN1Z0hjMGc3dTVkZ19ncDdfanp5cHdXak5VUTZYMWNxX05jZVhFYmEwdVYyNmt0cDNyTWtGMUEzZ3JvSmd1RUpYOGFNaVZBeUhDQTN3NTF4UHNGcFdWQmVFWG9EMkdUSl8tQnF6MFItcExLSzFFTDB2THZ4NFJKY0E5N05DdjZJNXNxU2psRlpYSEp0aEg3OFItUmJXdjJmTEhTcjM1NGlkLVZGRmpPNU42ZlZ6bFU3VzZFN051dXROM0xMa2ZKZXRNMmRUeU5HaEtBNDRaMkFmeDF1SDdjTmtxV1VXcW9rVU5qVEgyajJGUG1iYzdVVkREZGRMYUROSVR2RUpUR1d4ZEpSOFdlT3ZnM2pMWWJfSk5oVk1zSjVQVjRuOWN5MUJiSlh5V25PalF3MUY2ODRfTXpPWWswWmFLS0RwUkVuZnNldlppbjczdnFGdlEtYUxFekhtakpSTkFRZzFaU0EybmJwTDRydm1PQjM3WVNJYVc1T1oxM1JSeVB5aUx4WXQtUmNobmN6RWhvbnBRNWp5TGhDd0ZPbC10ck1GR204b0I4SEN1NmI0T3EwU2Vrc0w3X1pMWGYzb0pkSUlrRDdKckhFY3hMWE5vQ0FwQVFYUjd2a0NHZUVjcUVxa0dBX2ZOeERVLVRvbFhDblhPZWtUempBdXVVMlgtZ2RxcW1nb3kzcXRZaUlCUWFyTGV3NnhPRktxTTQ1QURBRlNoTTVocDJ6ZjViaDRqaVYzRDN6dl9waTJkRHhVZDlFSFZkLWtDMV8wTVlqZTVHOVlCeDhuOU1IcHQ5cmFrY2hlbG80Tk1FM0cycnN2T3BCZ1AwTnZKRTRkSEt2WS1jQnV6QllGWFJ2UzZSSEw3RzhESmRZZm0tT0pFR1F3blN6d0NCdEM5M09fLWttbDh2dHBXTkpfZzNvbVRUMnZBRjN6VnZqQm1lYklKcGhDa3gyWVpCYmotbjcxNmJMWVhGYkgyekZxVFRaN0lzSUtSUDJvbHlVLTJHVzJCY0JmZFN0dHprNUFPejROWTktSDMwMy13OGU2YkxjZGlFVUNsZDNZUDBEWmJ2MjRvVEVkTHRfTjl3cTNwbUF0VEF4YkxaRmI1Z25CZENycHAxRmpSWnJybGZ1cGNUU214WGM0OEtCeV9TVkNmaDZiUDNUcS1ibkR0VWZ4WWRwQjBhaGt3cURLM2ltNWMxQUV4a1B2ZHNhM3Y3TmV1Q3M4c0RoMFFfc1lkYmtsaUFPMlZLdS11eGFKaERDSDdmZnFoTDE4VncyS3pDTTBBYTBlaWtFR1pvUjlBU3djdUZjbkpQRVZycDh0akJTVXUxbnB6ZV9lNG4wN0lUSWduaE5FVXFqQlgzN25FMWRScnpObjc2MmtNOTQxWlBObEFhdjNVU3NFN1RnQURvYVlEQS13X3dKaGxaZGxTSmlwM2ZodDdmdXBob0o4ZGZZQnFfcW5ndHFMZGhKQlRoR0xfbE9Hazc2eFNCSGlQZEw5a0xULU9JeXR0bFJPc0NwOGdJRXprcFJmcVdFbU1qWl95N1hhc0V1MkRlS1QzNTNuRExsa3ZJcFhSYXE5ZEZVckxQd0tzcG50ci1rbkpTeFp1UGdDZTZxX1dtNFEwYWdBd09wSW5tdF9LT0o2dGRaVWRDRUZkN0Jxc043N0ZDS1pFTnZBUTNGMkpUWlZQS0pxblVuemRGdHdSMnpOTVI4M09zZkhSNWVhVmNLb1lSQjNkQlY0QkE3Snk3R1k5RGlDVWJ1eWYyVTJScEt3TERCSzl6dWwtMXhma2F3MXhvZjhaTjktT1NCT29iNG1heHQyMWtsd1dUSS1aVnFLYm8zbDdGcmhXVnRMVGYyd3VqYzh3RU5TdTI4OTVya3dGbzVrNzRGZUlDUWNZVW5xQmI2Y2pLcGw3TVEyNnZ6SXlVdHhxLVlBMzlWU2JINlRXM25FTDlodWJCN09CLXlLby1TdlM1VDI0QXl6MVBMQnI5TWNVRlJtYktxUXIwUHZUX1RjM0xaMWR0cXNSM0Z3LTNWNkhqNzNtMFMzeFVfczltek5uU0I4WmZiZXU3eHRwVWVNU2s2QllrbFo0dU1IeGtDQkJMaXpsazNMU29Vek4wcFY0akl1SWtpU1FSNVZjcGQ1T3NucElZRDFNRDhudFZTbkZ3Q3pzRWtiaENMbjJVRmJVTnFGSnVkTjNEZ0UzT3MtOFVkRXMzcE5yS3pZYUxQVnBsX2ZtM2tCWEpKTEhaRE5uWHFIZkZadlFrZGlNTWVXOGNyMDNRRDBuSEhJbFhkMHNFRG50VU1xN1pIcU5VaEhKMWd5bXdLQnhSdFZ6WnNaY3JPbjRNcWQxUm5ZLWtZV2hyeW10TlNqbTlRaXVpU1czYTYxRjBienlsRmJxUW5SbWotM3NPYmRMbG85aXZocGVpejVpMjZyYlg4WUFrS2NPeDdDd00xTW1BVm5BdU1qTHl1Qzg3YzVfVkN5cmR0UzdENHZxYjExVno0eGh1aUxrMll3WVpDWkJtMkUzcm51alBNNURHLWR1Y3dFbENmbjJsQnZQVmx0c09iQ0xWQ29FRkN0bkF5eVRtbkR0T1Y5cE5PNzBpdG8xblFvRXZTVXcxWDUtY25UYm92VjQ1SHNfVE05U2x4QWJkeUxzbFZmQ25oM0ZkMXNxY0NnTzc4VVpSU01Fb081V0VDbDJEMEFNQnVuLVRTY0pSS0NLRmJDdmcySWEyeVNIcFNpSENObFRNNDJEX1pYZVFBMWxxUHhJNkhNR0p2MklNY1R1YzhuX2FocXU0Ul95UUVScmZlT21yNDhzYmVwa1FkUnlpQWZzY2FGMG5ueFZJZ0tabHlpYVpFTGRfX3A3a1dBc3FxQ2g4U3RXUkdsSVhiRkRTb1V5eWN5cE8waHNZcWttQmlsNFNobkIxQ1dpWUQtc3c2ZVRKYlRaalJiT3BWV1ZYclg2Yzc3X3BPcUtBOGJXRTE5X3pUMFpwUk5uU2o4XzdnUHBxVGhKM1ZOajRad1B0SlkzOFNBemNLQ2YwXy1mcVBPYmV3cXFFWlNEZHd4bjg0SXhRWS0wSk1LLWRUNm5CaGNTVzNzLXljLU90Tm5LTnB0Rm5uQVl6ZUliZDNsZkk3dmpnTElxUlpONUZuc0dyQWstaEtJb0FlWWhLb213MllJLWlWcHFqUzJnZzBsMVFkNWIxeFYwSTh0dk9MeUE3SE5mOXA3YWI3NmhJUnlLS0tXLXd4eXVJMUtVLTN2aHFhNVBQR3pFYzZPX3BuZ1FKOHZ1WnhSMzdhdm9UWDFoNE1xdXJVc2lSaS1VdDNwdnlrYTY3LU5NOWV3bUJJdW1BSGpyMFg1WGs3cHlyWkxqMU55ZDVTUzZXTUQ1cVp0cjNUZURoTXVDY1VKZ3lObEdpb01WWk1tQXdzRmVyLUhyd2hUcHlQLUV6S1UzRGwyUmJLQmVMaWFDQ0hHQjFDZE9pUUFrTXFrSE14RVFBTE9abUt0VlBrR2JCSUM1YWJVbVppdjREaTNCS2JTaTM1WExmbUd6V3k3UFhWNHpQTmhNNDZQSGxJM0xmWGRXRUNad1ZVNXpKZjVMYW1jRlZOU2oya1hvSGR4QnJSTVRmWVNxckEuY2YyVl9DSWFVd3lubEp2aGlyNmtNSkF4M1FyYklRai0yV2N4d0k3cUwtOVBnX3lzTFFxdzlab0oxV3dDS3VaT0U4VVZIMWtKRXhsR2ZsWDItZWljeEE=" /><input type="hidden" name="_eventId" value="submit" /><input type="hidden" name="geolocation" /><input type="hidden" name="deviceFingerprint" /><script type="text/javascript">
+                    let client = new ClientJS();
+                    let fingerprint = client.getFingerprint();
+                    $('[name="deviceFingerprint"]').val(fingerprint);
+                  </script>
+                </section>
+
+                <!-- <div th:replace="~{fragments/submitbutton :: submitButton (messageKey='screen.welcome.button.login')}"/> --><button type="submit" id="login-submit" style="box-sizing: content-box; padding: 0px; margin: 0px"
+                  disabled>Log In</button>
+              </div>
+            </form>
+
+            <div class="additional-text-2">
+              Please make sure you logout from all the applications and close
+              the browser window when you have finished using the system.
+              <br /><br />
+              IT Support will NEVER ask for your password and/or any other
+              personal information. Please do not reply to any such mail and
+              report them immediately to IT support.
+            </div>
+          </div>
+        </div>
+        <!-- Logo in the top right corner --><!-- <div class="logo-right">
+                    <img src="./images/iiit-new.png" alt="IIITH Logo" style="object-fit: cover ;">
+                </div> --><!-- <div id="selectIdentityProvider"
+                 th:if="${#bools.isTrue(delegatedAuthenticationDynamicProviderSelection) and loginFormViewable and loginFormEnabled}">
+                <p>
+                <form method="post" id="providerDiscoveryForm">
+                    <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+                    <input type="hidden" name="_eventId" value="discovery"/>
+                    <span class="fa fa-unlock"></span>
+                    <button th:id="selectProviderButton"
+                            class="mdc-button mdc-button--raised"
+                            onclick="$('#providerDiscoveryForm').submit();"
+                            th:value="#{screen.pac4j.button.selectprovider}">
+                        <span class="mdc-button__label" th:text="#{screen.pac4j.button.selectprovider}">Select</span>
+                    </button>
+                </form>
+            </div> --><!-- <div id="x509Login" th:if="${x509ClientAuthLoginEndpointUrl}">
+                <span th:if="${loginFormViewable and loginFormEnabled}">
+                    <hr class="my-4"/>
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+                        function x509login() {
+                            let url =  /**/;
+                            url += window.location.search;
+                            window.location.assign(url)
+                        }
+
+                        /*]]>*/
+                    </script>
+                    <a id="x509LoginLink" class="mdc-button mdc-button--raised btn btn-primary"
+                       onclick="javascript:x509login();"
+                       th:text="#{screen.welcome.button.loginx509}">X509 Login</a>
+                </span>
+            </div> --><!-- <hr th:if="${loginFormViewable and loginFormEnabled}" class="my-4"/>
+
+            <span id="webauthnLoginPanel" th:if="${webAuthnPrimaryAuthenticationEnabled}">
+                <script type="text/javascript">
+                    $('#webauthnLoginPanel').show();
+                </script>
+
+                <div th:replace="~{fragments/webAuthnLogin :: webAuthnLogin}"/>
+                <hr class="my-4"/>
+            </span>
+ --><!-- <div th:if="${loginFormViewable and loginFormEnabled}">
+                <span th:remove="tag"
+                      th:if="${'true' == #strings.defaultString(#themes.code('cas.pm-links.enabled'), 'true')}">
+                    <div th:replace="~{fragments/pmlinks :: pmlinks}"/>
+                </span>
+            </div> --><!-- <script type="text/javascript" th:inline="javascript">
+                /*<![CDATA[*/
+                var i = /*One moment please...*/
+                var j = /*Log In*/
+                    /*]]>*/
+                    $(window).on('pageshow', function () {
+                        $(':submit').prop('disabled', false);
+                        $(':submit').attr('value', j);
+                    });
+                $(document).ready(function () {
+                    $("#fm1").submit(function () {
+                        $(":submit").attr("disabled", true);
+                        $(":submit").attr("value", i);
+                        return true;
+                    });
+                });
+            </script> --><script type="text/javascript">
+          /*<![CDATA[*/
+          var i =
+            "One moment please..."
+            /*]]>*/
+            $(document).ready(function () {
+              $("#fm1").submit(function () {
+                // Indicate that the form is being submitted
+                $("#login-submit").attr("disabled", true);
+                $("#login-submit").text(i);
+                return true;
+              });
+            });
+        </script>
+      </div>
+
+      <!-- <div th:if="${loginFormViewable and loginFormEnabled}">
+            <div th:replace="~{fragments/loginsidebar :: loginsidebar}"/>
+        </div> --></div>
+        </div>
+        <span
+        >
+          </span>
+        </div>
+    </div>
+      <button class="theme-toggle" id="themeToggle">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+
+    <footer>
+      <span style="font-weight: 700">
+        © International Institute of Information Technology, Hyderabad.
+      </span>
+      <br />
+      Designed by Shaunak, Shreyansh & Bhav.
+      <br />
+      All rights reserved.
+    </footer>
+  </body>
+</html>
