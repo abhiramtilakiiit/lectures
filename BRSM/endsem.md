@@ -93,3 +93,4 @@ Mean of both sampling and population is same. But the variance can be
 related as:
 
 SEM = sigma / root(N) N is biased estimator, N-1 is unbiased.
+
